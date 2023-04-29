@@ -3,12 +3,11 @@ const bcrypt = require('bcryptjs');
 
 
 const pool = new Pool({
-    host: "localhost",
-    user: "postgres",
-    database: "Montaña" ,
-    password:"admin",
+    host: "horton.db.elephantsql.com",
+    user: "eszyquqw",
+    database: "eszyquqw" ,
+    password:"m_MSzhvR-2Nc_GAAN9sieXm-11MWdpfv",
 });
-
 
 // console.log(pool)
 

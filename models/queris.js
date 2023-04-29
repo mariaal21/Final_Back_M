@@ -34,7 +34,21 @@ const queriesRol = {
 };
 
 
+const querisInfo = {
+    getTipo: `SELECT tipo FROM public.info;`,
+
+    getTipoandLocation: `SELECT tipo, localizacion FROM public.info;`,
+
+    getAlldatos: `SELECT titulo, descripcion, nivel, localizacion
+    FROM public.info
+    WHERE tipo = $1;` // o la que quieras 
+    
+}
+
+
+
 module.exports = {
     queriesUser,
-    queriesRol
+    queriesRol,
+    querisInfo
 } 

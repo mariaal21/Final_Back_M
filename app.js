@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())                            
 
 
-app.use('/api/users', require('./routers/routerUser'));        
-// app.use('/api/entries', require('./routers/routerEntries'));   
+app.use('/api/users', require('./routers/RouterUser'));        
+app.use('/api/routes', require('./routers/RouterInfo'));   
 
 
 
