@@ -1,16 +1,19 @@
 const {
-    modelGetTipo,
+    modelGetBoulder,
     modelGetLocation,
-    modelGetAllDatos } = require('../models/InfoModel')
+    modelGetAllDatos, 
+modelGetAll,
+modelGetClasica,
+modelGetDeportiva } = require('../models/InfoModel')
 
 
-const getTipo = async (req, res) => {
+const GetBoulder = async (req, res) => {
 
     try {
 
         console.log("Hola")        
 
-        const data = await modelGetTipo();
+        const data = await modelGetBoulder();
         
         if (data) return res.status(200).json({
             ok: true,
@@ -33,6 +36,96 @@ const getTipo = async (req, res) => {
     };
 };
 
+
+const GetClasica = async (req, res) => {
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetClasica();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getTipo.',
+            error: e
+        });
+
+    };
+};
+
+
+
+const GetDeportiva = async (req, res) => {
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetDeportiva();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getTipo.',
+            error: e
+        });
+
+    };
+};
+
+
+const getAll = async (req, res) => {
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetAll();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getAll.',
+            error: e
+        });
+
+    };
+};
 
 const getLocation = async (req, res) => {
 
@@ -64,8 +157,10 @@ const getAllFromTipo = async ( { params } , res) => {
 
     try {
         
-        const tipo = req.params.tipo;
+        const tipo = params.tipo;
         
+        console.log(params.tipo)
+
         const data = await modelGetAllDatos(tipo);
 
 
@@ -75,7 +170,7 @@ const getAllFromTipo = async ( { params } , res) => {
         });
         else {
             const err = {};
-            err.email = `No se encontró ningúna descripcion para ${params.tipo}`
+            err.tipo = `No se encontró ningúna descripcion para ${params.tipo}`
             return res.status(400).json({
                 ok: true,
                 errors: err
@@ -94,7 +189,10 @@ const getAllFromTipo = async ( { params } , res) => {
 
 
 module.exports = {
-    getTipo,
+    GetBoulder,
     getLocation,
-    getAllFromTipo
+    getAllFromTipo,
+    getAll,
+    GetClasica,
+    GetDeportiva
 }

@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 
-const modelGetTipo = async () => {
+const modelGetBoulder = async () => {
 
     let client, result;
 
@@ -18,7 +18,7 @@ const modelGetTipo = async () => {
         
         client = await pool.connect();
        
-        const data = await client.query(querisInfo.getTipo)
+        const data = await client.query(querisInfo.getBoulder)
 
         console.log(data)
         if (data.rowCount !== 0) {
@@ -39,6 +39,99 @@ const modelGetTipo = async () => {
 };
 
 // console.log(info)
+
+
+
+
+const modelGetClasica = async () => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getClasica)
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
+
+// console.log(info)
+
+
+
+const modelGetDeportiva = async () => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getDeportiva)
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
+
+
+
+const modelGetAll = async () => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getAll)
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
 
 
 const modelGetLocation = async () => {
@@ -77,7 +170,7 @@ const modelGetAllDatos = async (tipo) => {
         
         client = await pool.connect();
 
-        const data = await client.query(querisInfo. getAlldatos, [tipo])
+        const data = await client.query(querisInfo. getLocalizazion, [tipo])
 
         if (data.rowCount !== 0) {
             result = data.rows;
@@ -97,9 +190,13 @@ const modelGetAllDatos = async (tipo) => {
 };
 
 module.exports = {
-    modelGetTipo,
+    modelGetBoulder,
+    modelGetClasica,
+    modelGetDeportiva,
     modelGetLocation,
-    modelGetAllDatos
+    modelGetAllDatos,
+    modelGetAll,
+    
 }
 
 

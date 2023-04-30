@@ -35,7 +35,28 @@ const queriesRol = {
 
 
 const querisInfo = {
-    getTipo: `SELECT tipo FROM public.info;`,
+
+    getAll: `SELECT * FROM info`,
+
+    // getTipo: `SELECT tipo FROM public.info;`,
+
+    getBoulder: `SELECT localizacion 
+            FROM info 
+            WHERE tipo = 'Boulder' ;`,
+
+    getClasica: `SELECT localizacion 
+            FROM info 
+            WHERE tipo = 'Clasica' ;`,
+
+
+    getDeportiva: `SELECT localizacion 
+            FROM info 
+            WHERE tipo = 'Deportiva' ;`,
+
+
+    getLocalizazion: `SELECT localizacion 
+            FROM info 
+            WHERE tipo = $1;`,
 
     getTipoandLocation: `SELECT tipo, localizacion FROM public.info;`,
 
@@ -45,10 +66,9 @@ const querisInfo = {
     
 }
 
-
-
 module.exports = {
     queriesUser,
     queriesRol,
     querisInfo
 } 
+

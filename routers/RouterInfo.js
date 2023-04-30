@@ -2,13 +2,23 @@ const express = require('express');
 const router = express.Router();
 
 
+
 const {
-    getTipo,
+    GetBoulder,
     getLocation,
-    getAllFromTipo } = require('../controllers/ControllerInfo')
+    getAllFromTipo,
+    getAll,
+    GetClasica,
+    GetDeportiva } = require('../controllers/ControllerInfo')
 
 
-router.get('/', getTipo);
+router.get('/', getAll);
+
+router.get('/boulder', GetBoulder);
+
+router.get('/clasica', GetClasica);
+
+router.get('/deportiva', GetDeportiva);
 
 router.get('/localizacion', getLocation);
 
