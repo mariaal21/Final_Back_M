@@ -43,7 +43,7 @@ const modelGetBoulder = async () => {
 
 
 
-const modelGetClasica = async () => {
+const modelGetClasica = async (info_id) => {
 
     let client, result;
 
@@ -51,7 +51,7 @@ const modelGetClasica = async () => {
         
         client = await pool.connect();
        
-        const data = await client.query(querisInfo.getClasica)
+        const data = await client.query(querisInfo.getClasica, [info_id]);
 
         console.log(data)
         if (data.rowCount !== 0) {
@@ -105,6 +105,37 @@ const modelGetDeportiva = async () => {
 
 
 
+
+const modelGetClasicaAlone = async () => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getClasicaAlone)
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
+
+
+
 const modelGetAll = async () => {
 
     let client, result;
@@ -133,6 +164,34 @@ const modelGetAll = async () => {
     return result;
 };
 
+
+
+  const modelgetLocalizacionInfo= async (localizacion) => {
+
+    let client, result;
+    console.log("hola")
+    try {
+        console.log("hola")
+        client = await pool.connect();
+
+        const data = await client.query(querisInfo.getLocalizazion, [localizacion])
+
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
 
 const modelGetLocation = async () => {
 
@@ -196,6 +255,8 @@ module.exports = {
     modelGetLocation,
     modelGetAllDatos,
     modelGetAll,
+    modelgetLocalizacionInfo,
+    modelGetClasicaAlone
     
 }
 

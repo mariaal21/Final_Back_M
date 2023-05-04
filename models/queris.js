@@ -34,37 +34,49 @@ const queriesRol = {
 };
 
 
+
+
 const querisInfo = {
 
-    getAll: `SELECT * FROM info`,
-
-    // getTipo: `SELECT tipo FROM public.info;`,
-
-    getBoulder: `SELECT localizacion 
-            FROM info 
-            WHERE tipo = 'Boulder' ;`,
-
-    getClasica: `SELECT localizacion 
-            FROM info 
-            WHERE tipo = 'Clasica' ;`,
-
-
-    getDeportiva: `SELECT localizacion 
-            FROM info 
-            WHERE tipo = 'Deportiva' ;`,
-
-
-    getLocalizazion: `SELECT localizacion 
-            FROM info 
-            WHERE tipo = $1;`,
-
-    getTipoandLocation: `SELECT tipo, localizacion FROM public.info;`,
-
-    getAlldatos: `SELECT titulo, descripcion, nivel, localizacion
-    FROM public.info
-    WHERE tipo = $1;` // o la que quieras 
+        getAll: `SELECT * FROM info`,
     
-}
+        // getTipo: `SELECT tipo FROM public.info;`,
+    
+        getBoulder: `SELECT localizacion 
+                FROM info 
+                WHERE tipo = 'Boulder' ;`,
+    
+        getClasica: `SELECT  localizacion, titulo, descripcion, nivel
+                FROM info 
+                WHERE tipo = 'Clasica'
+                AND info_id = $1 ;`,
+    
+    
+        getClasicaAlone: `SELECT info_id, localizacion 
+                FROM info 
+                WHERE tipo = 'Clasica' ;`,
+    
+        getDeportiva: `SELECT localizacion 
+                FROM info 
+                WHERE tipo = 'Deportiva' ;`,
+    
+        getDatos : ` SELECT titulo, descripcion, nivel
+        FROM info
+        WHERE localizacion = $1;`,
+        
+    
+        getLocalizazion: `SELECT localizacion 
+                FROM info 
+                WHERE tipo = $1;`,
+    
+        getTipoandLocation: `SELECT tipo, localizacion FROM public.info;`,
+    
+        getAlldatos: `SELECT titulo, descripcion, nivel, localizacion
+        FROM public.info
+        WHERE tipo = $1;`, // o la que quieras 
+        
+    }
+    
 
 module.exports = {
     queriesUser,

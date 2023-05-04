@@ -4,7 +4,9 @@ const {
     modelGetAllDatos, 
 modelGetAll,
 modelGetClasica,
-modelGetDeportiva } = require('../models/InfoModel')
+modelGetDeportiva,
+modelgetLocalizacionInfo,
+modelGetClasicaAlone } = require('../models/InfoModel')
 
 
 const GetBoulder = async (req, res) => {
@@ -37,13 +39,47 @@ const GetBoulder = async (req, res) => {
 };
 
 
-const GetClasica = async (req, res) => {
+const GetClasicaAlone = async (req, res) => {
 
     try {
 
         console.log("Hola")        
 
-        const data = await modelGetClasica();
+        const data = await modelGetClasicaAlone();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getTipo.',
+            error: e
+        });
+
+    };
+};
+
+
+const GetClasica = async (req, res) => {
+
+    const {id} = req.params
+
+    console.log("Hola")
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetClasica(id);
         
         if (data) return res.status(200).json({
             ok: true,
@@ -127,30 +163,64 @@ const getAll = async (req, res) => {
     };
 };
 
-const getLocation = async (req, res) => {
 
+  const getInfoByLocalizacion  = async ({ params }, res) => {
+
+    console.log("Hola")
+    console.log(params)
     try {
 
-        const data = await modelGetLocation();
+        const data = await modelgetLocalizacionInfo(params.localizacion);
 
         if (data) return res.status(200).json({
             ok: true,
             data
         });
-        else return res.status(400).json({
-            ok: true,
-            msg: 'No hay ningun localizacion'
-        });
+        else {
+            const err = {};
+            err.localizacion = `No se encontró ningún usuario con la localizacion: ${params.localizacion}`
+            return res.status(400).json({
+                ok: true,
+                errors: err
+            });
+        }
 
     } catch (e) {
         return res.status(500).json({
             ok: false,
-            msg: 'Error en getLocation',
-            error: e
+            msg: 'Error en funcion.',
+            error: e.stack
         });
 
     };
 };
+
+
+
+// const getLocation = async (req, res) => {
+
+//     try {
+
+//         const data = await modelGetLocation();
+
+//         if (data) return res.status(200).json({
+//             ok: true,
+//             data
+//         });
+//         else return res.status(400).json({
+//             ok: true,
+//             msg: 'No hay ningun localizacion'
+//         });
+
+//     } catch (e) {
+//         return res.status(500).json({
+//             ok: false,
+//             msg: 'Error en getLocation',
+//             error: e
+//         });
+
+//     };
+// };
 
 
 const getAllFromTipo = async ( { params } , res) => {
@@ -190,9 +260,11 @@ const getAllFromTipo = async ( { params } , res) => {
 
 module.exports = {
     GetBoulder,
-    getLocation,
+    // getLocation,
     getAllFromTipo,
     getAll,
     GetClasica,
-    GetDeportiva
+    GetDeportiva,
+    getInfoByLocalizacion,
+    GetClasicaAlone
 }
