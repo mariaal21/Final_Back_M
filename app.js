@@ -18,6 +18,7 @@ app.use(express.json())
 
 app.use('/api/users', require('./routers/RouterUser'));        
 app.use('/api/routes', require('./routers/RouterInfo'));   
+app.use('/api/foro', require('./routers/routesForo'));
 
 
 

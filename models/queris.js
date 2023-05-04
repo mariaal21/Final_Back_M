@@ -78,9 +78,19 @@ const querisInfo = {
     }
     
 
+ const queriesForo ={
+
+        InsertarDatos:`INSERT INTO foro (nombre, comentario, fecha)
+                VALUES ($1, $2, $3)
+                RETURNING commentId, nombre, comentario, fecha`,
+        getAllForo : `SELECT * FROM foro`
+
+}
+
 module.exports = {
     queriesUser,
     queriesRol,
-    querisInfo
+    querisInfo,
+    queriesForo
 } 
 
