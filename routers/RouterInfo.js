@@ -1,26 +1,28 @@
 const express = require('express');
 const router = express.Router();
 
-
-
 const {
     GetBoulder,
-    getLocation,
     getAllFromTipo,
     getAll,
     GetClasica,
-    GetDeportiva } = require('../controllers/ControllerInfo')
+    GetDeportiva,
+    getInfoByLocalizacion,
+    GetClasicaAlone } = require('../controllers/ControllerInfo')
 
 
 router.get('/', getAll);
 
 router.get('/boulder', GetBoulder);
 
-router.get('/clasica', GetClasica);
+router.get('/localizacion/:localizacion', getInfoByLocalizacion )
+
+router.get('/clasica/:id', GetClasica);
+
+router.get('/clasica', GetClasicaAlone);
 
 router.get('/deportiva', GetDeportiva);
 
-router.get('/localizacion', getLocation);
 
 router.get('/descripcion', getAllFromTipo);
 
