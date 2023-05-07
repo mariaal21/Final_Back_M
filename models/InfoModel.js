@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 
-const modelGetBoulder = async () => {
+const modelGetBoulderAlone = async () => {
 
     let client, result;
 
@@ -18,7 +18,7 @@ const modelGetBoulder = async () => {
         
         client = await pool.connect();
        
-        const data = await client.query(querisInfo.getBoulder)
+        const data = await client.query(querisInfo.getBoulderAlone)
 
         console.log(data)
         if (data.rowCount !== 0) {
@@ -71,11 +71,9 @@ const modelGetClasica = async (info_id) => {
     return result;
 };
 
-// console.log(info)
 
 
-
-const modelGetDeportiva = async () => {
+const modelGetBoulder = async (info_id) => {
 
     let client, result;
 
@@ -83,7 +81,40 @@ const modelGetDeportiva = async () => {
         
         client = await pool.connect();
        
-        const data = await client.query(querisInfo.getDeportiva)
+        const data = await client.query(querisInfo.getBoulder, [info_id]);
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
+
+
+// console.log(info)
+
+
+
+const modelGetDeportivaAlone = async () => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getDeportivaAlone)
 
         console.log(data)
         if (data.rowCount !== 0) {
@@ -105,6 +136,33 @@ const modelGetDeportiva = async () => {
 
 
 
+const modelGetDeportiva = async (info_id) => {
+
+    let client, result;
+
+    try {
+        
+        client = await pool.connect();
+       
+        const data = await client.query(querisInfo.getDeportiva, [info_id]);
+
+        console.log(data)
+        if (data.rowCount !== 0) {
+            result = data.rows;
+          } else {
+            result = false;
+          }
+
+    } catch (e) {
+        throw e;
+
+    } finally {
+        client.release();
+
+    };
+
+    return result;
+};
 
 const modelGetClasicaAlone = async () => {
 
@@ -133,6 +191,7 @@ const modelGetClasicaAlone = async () => {
 
     return result;
 };
+
 
 
 
@@ -249,14 +308,16 @@ const modelGetAllDatos = async (tipo) => {
 };
 
 module.exports = {
-    modelGetBoulder,
+    modelGetBoulderAlone,
     modelGetClasica,
-    modelGetDeportiva,
+    modelGetDeportivaAlone,
     modelGetLocation,
     modelGetAllDatos,
     modelGetAll,
     modelgetLocalizacionInfo,
-    modelGetClasicaAlone
+    modelGetClasicaAlone,
+    modelGetBoulder,
+    modelGetDeportiva
     
 }
 

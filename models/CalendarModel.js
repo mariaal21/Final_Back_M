@@ -11,12 +11,12 @@ const pool = new Pool({
 
 console.log(Pool)
 
-const { queriesForo } = require('./queris');
+const { queriesCalendar } = require('./queris');
 
 
 
 
-const modelGetAllForo = async () => {
+const modelGetAllCalendar = async () => {
 
     let client, result;
 
@@ -24,7 +24,7 @@ const modelGetAllForo = async () => {
         
         client = await pool.connect();
        
-        const data = await client.query(queriesForo.getAllForo)
+        const data = await client.query(queriesCalendar.getAllCalendario)
 
         console.log(data)
         if (data.rowCount !== 0) {
@@ -46,14 +46,14 @@ const modelGetAllForo = async () => {
 
 
 
-const modelInsertComment = async ({ name, comentario, fecha }) => {
+const modelInsertCalendar = async ({ nombre, ruta, personas,fecha }) => {
 
     let client, result;
     try {
 
         client = await pool.connect();
 
-        const data = await client.query(queriesForo.InsertarDatos, [name, comentario, fecha]);
+        const data = await client.query(queriesCalendar.InsertarCalendario, [nombre, ruta, personas,fecha]);
 
         if (data.rowCount !== 0) {
             result = data.rows;
@@ -73,14 +73,15 @@ const modelInsertComment = async ({ name, comentario, fecha }) => {
 };
 
 
-const modelDeleteForo = async (commentId) => {
+
+const modelDeleteCalendar = async (id) => {
     let client, result;
   
     try {
       client = await pool.connect();
   
-      const query = 'DELETE FROM foro WHERE commentId = $1';
-      const values = [commentId];
+      const query = 'DELETE FROM calendar WHERE id = $1';
+      const values = [id];
       const data = await client.query(query, values);
   
       if (data.rowCount !== 0) {
@@ -100,7 +101,7 @@ const modelDeleteForo = async (commentId) => {
 
 
 module.exports = {
-    modelInsertComment,
-    modelGetAllForo,
-    modelDeleteForo
+    modelGetAllCalendar,
+    modelInsertCalendar,
+    modelDeleteCalendar
 }

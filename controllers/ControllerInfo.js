@@ -1,21 +1,34 @@
 const {
-    modelGetBoulder,
+    modelGetBoulderAlone,
     modelGetLocation,
     modelGetAllDatos, 
 modelGetAll,
 modelGetClasica,
-modelGetDeportiva,
+modelGetDeportivaAlone,
 modelgetLocalizacionInfo,
-modelGetClasicaAlone } = require('../models/InfoModel')
+modelGetClasicaAlone,
+modelGetBoulder,
+modelGetDeportiva } = require('../models/InfoModel')
 
 
-const GetBoulder = async (req, res) => {
+/**
+ * @function GetBoulderAlone
+ * @description Función asincrónica que devuelve los datos de la escalada en solitario Boulder.
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetBoulderAlone(req, res);
+ */
+
+const GetBoulderAlone = async (req, res) => {
 
     try {
 
         console.log("Hola")        
 
-        const data = await modelGetBoulder();
+        const data = await modelGetBoulderAlone();
         
         if (data) return res.status(200).json({
             ok: true,
@@ -38,6 +51,18 @@ const GetBoulder = async (req, res) => {
     };
 };
 
+
+
+/**
+ * @function GetClasicaAlone
+ * @description Función asincrónica que devuelve los datos de la escalada en solitario de clasica.
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetClasicaAlone(req, res);
+ */
 
 const GetClasicaAlone = async (req, res) => {
 
@@ -67,6 +92,18 @@ const GetClasicaAlone = async (req, res) => {
 
     };
 };
+
+
+/**
+ * @function GetClasica
+ * @description Función asincrónica que devuelve los datos de una escalada clásica con el identificador proporcionado.
+ * @param {Object} req - Objeto de solicitud HTTP con el parámetro de identificación de la escalada.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetClasica(req, res);
+ */
 
 
 const GetClasica = async (req, res) => {
@@ -103,14 +140,28 @@ const GetClasica = async (req, res) => {
 };
 
 
+/**
+ * @function GetBoulder
+ * @description Función asincrónica que devuelve los datos de una escalada clásica con el identificador proporcionado.
+ * @param {Object} req - Objeto de solicitud HTTP con el parámetro de identificación de la escalada.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetBoulder(req, res);
+ */
 
-const GetDeportiva = async (req, res) => {
+const GetBoulder = async (req, res) => {
+
+    const {id} = req.params
+
+    console.log("Hola")
 
     try {
 
         console.log("Hola")        
 
-        const data = await modelGetDeportiva();
+        const data = await modelGetBoulder(id);
         
         if (data) return res.status(200).json({
             ok: true,
@@ -133,6 +184,104 @@ const GetDeportiva = async (req, res) => {
     };
 };
 
+
+/**
+ * @function GetDeportiva
+ * @description Función asincrónica que devuelve los datos de una escalada clásica con el identificador proporcionado.
+ * @param {Object} req - Objeto de solicitud HTTP con el parámetro de identificación de la escalada.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetDeportiva(req, res);
+ */
+
+const GetDeportiva = async (req, res) => {
+
+    const {id} = req.params
+
+    console.log("Hola")
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetDeportiva(id);
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getTipo.',
+            error: e
+        });
+
+    };
+};
+
+
+/**
+ * @function GetDeportivaAlone
+ * @description Función asincrónica que devuelve los datos de la escalada en solitario de deportiva.
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await GetDeportivaAlone(req, res);
+ */
+
+
+const GetDeportivaAlone = async (req, res) => {
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetDeportivaAlone();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de escalada'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getTipo.',
+            error: e
+        });
+
+    };
+};
+
+
+/**
+ * @function getAll
+ * @description Función asincrónica que devuelve todos los datos de las escaladas.
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación.
+ * @async
+ * @example
+ * const data = await getAll(req, res);
+ */
 
 const getAll = async (req, res) => {
 
@@ -162,6 +311,17 @@ const getAll = async (req, res) => {
 
     };
 };
+
+/**
+ * @function getInfoByLocalizacion
+ * @description Función asincrónica que devuelve la información de las escaladas según una localización específica.
+ * @param {Object} params - Objeto de parámetros con la localización de la escalada.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @throws {Object} Objeto JSON con mensaje de error si ocurre un error en la operación o si no se encuentra ninguna escalada con la localización proporcionada.
+ * @async
+ * @example
+ * const data = await getInfoByLocalizacion({ params }, res);
+ */
 
 
   const getInfoByLocalizacion  = async ({ params }, res) => {
@@ -196,31 +356,17 @@ const getAll = async (req, res) => {
 };
 
 
-
-// const getLocation = async (req, res) => {
-
-//     try {
-
-//         const data = await modelGetLocation();
-
-//         if (data) return res.status(200).json({
-//             ok: true,
-//             data
-//         });
-//         else return res.status(400).json({
-//             ok: true,
-//             msg: 'No hay ningun localizacion'
-//         });
-
-//     } catch (e) {
-//         return res.status(500).json({
-//             ok: false,
-//             msg: 'Error en getLocation',
-//             error: e
-//         });
-
-//     };
-// };
+/**
+ * Obtiene todos los datos de escalada para un tipo de escalada dado.
+ * @async
+ * @function getAllFromTipo
+ * @param {Object} req - El objeto de solicitud de Express.
+ * @param {Object} req.params - Los parámetros de la solicitud de Express.
+ * @param {string} req.params.tipo - El tipo de escalada del que se desean obtener los datos.
+ * @param {Object} res - El objeto de respuesta de Express.
+ * @returns {Promise<Object>} - Una respuesta JSON con los datos de escalada para el tipo especificado.
+ * @throws {Error} - Un error de servidor si algo sale mal al obtener los datos de escalada.
+ */
 
 
 const getAllFromTipo = async ( { params } , res) => {
@@ -259,12 +405,14 @@ const getAllFromTipo = async ( { params } , res) => {
 
 
 module.exports = {
-    GetBoulder,
+    GetBoulderAlone,
     // getLocation,
     getAllFromTipo,
     getAll,
     GetClasica,
-    GetDeportiva,
+    GetDeportivaAlone,
     getInfoByLocalizacion,
-    GetClasicaAlone
+    GetClasicaAlone,
+    GetBoulder,
+    GetDeportiva
 }

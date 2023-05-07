@@ -9,7 +9,9 @@ const pool = new Pool({
     password:"m_MSzhvR-2Nc_GAAN9sieXm-11MWdpfv",
 });
 
-// console.log(pool)
+
+
+console.log(Pool)
 
 const {
     queriesUser,
@@ -123,11 +125,10 @@ const modelLoginUser = async ({ email, password }) => {
             result = false;
           }
 
+        // if (result) {
+        //     isPassOK = bcrypt.compareSync(password, result.password);
 
-        if (result) {
-            isPassOK = bcrypt.compareSync(password, result.password);
-
-        }
+        // }
 
     } catch (e) {
         throw e;
@@ -201,6 +202,7 @@ const modelLogoutUser = async ({ email }) => {
 
     };
 };
+
 
 
 module.exports = {

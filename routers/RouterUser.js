@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+
 const { check } = require('express-validator');
 const { validateInputs } = require('../middleware/validarInputs');
 
 const {
     getUsers,
-    getUserByEmail,
+    // getUserByEmail,
     createUser,
     loginUser,
     changePassword,
@@ -16,7 +17,7 @@ const {
 router.get('/', getUsers);
 
 
-router.get('/:email', getUserByEmail);
+// router.get('/:email', getUserByEmail);
 
 
 router.post('/', [
@@ -44,3 +45,5 @@ router.put('/changePassword',[
 
 
 module.exports = router
+
+

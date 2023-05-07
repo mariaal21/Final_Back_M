@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
             ok: true,
             msg: 'No existen usuarios'
         });
-
+        
     } catch (e) {
         return res.status(500).json({
             ok: false,
@@ -33,34 +33,34 @@ const getUsers = async (req, res) => {
 };
 
 
-const getUserByEmail = async ({ params }, res) => {
+// const getUserByEmail = async ({ params }, res) => {
 
-    try {
+//     try {
 
-        const data = await modelGetUserByEmail(params.email);
+//         const data = await modelGetUserByEmail(params.email);
 
-        if (data) return res.status(200).json({
-            ok: true,
-            data
-        });
-        else {
-            const err = {};
-            err.email = `No se encontró ningún usuario con el email: ${params.email}`
-            return res.status(400).json({
-                ok: true,
-                errors: err
-            });
-        }
+//         if (data) return res.status(200).json({
+//             ok: true,
+//             data
+//         });
+//         else {
+//             const err = {};
+//             err.email = `No se encontró ningún usuario con el email: ${params.email}`
+//             return res.status(400).json({
+//                 ok: true,
+//                 errors: err
+//             });
+//         }
 
-    } catch (e) {
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error en getUserByEmail.',
-            error: e.stack
-        });
+//     } catch (e) {
+//         return res.status(500).json({
+//             ok: false,
+//             msg: 'Error en getUserByEmail.',
+//             error: e.stack
+//         });
 
-    };
-};
+//     };
+// };
 
 
 const createUser = async ({ body }, res) => {
@@ -86,11 +86,11 @@ const createUser = async ({ body }, res) => {
             });
         }
 
-        return res.status(500).json({
-            ok: false,
-            msg: 'Error en createUser.',
-            error: e.stack
-        });
+        // return res.status(500).json({
+        //     ok: false,
+        //     msg: 'Error en createUser.',
+        //     error: e.stack
+        // });
 
     };
 };
@@ -191,7 +191,7 @@ const logoutUser = async ({ body }, res) => {
 
 module.exports = {
     getUsers,
-    getUserByEmail,
+    // getUserByEmail,
     createUser,
     loginUser,
     changePassword,
