@@ -11,5 +11,7 @@ router.get('/', getAllForo);
 router.delete('/:id', deleteforo);
 
 
+router.put('/:id', deleteforo);
+
 module.exports = router
 
