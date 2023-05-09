@@ -8,7 +8,7 @@
     - Instalar todas las dependencias y las librerias utilizadas
     npm install 
 
-    - En ambos repositorios iniciar el programa con npm run dev
+    - En ambos repositorios iniciar el programa con npm start
 
 
 ## End Points 

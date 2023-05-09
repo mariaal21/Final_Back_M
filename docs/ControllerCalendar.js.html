@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ControllerCalendar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ControllerCalendar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const {
+    modelGetAllCalendar,
+    modelInsertCalendar,
+    modelDeleteCalendar
+} = require ('../models/CalendarModel')
+
+
+/**
+ * Retorna todos los datos del calendario.
+ *
+ * @async
+ * @function
+ * @param {Object} req - El objeto request de Express.
+ * @param {Object} res - El objeto response de Express.
+ * @returns {Promise} Una promesa que resuelve en un objeto JSON con la respuesta.
+ *
+ * @throws {Object} Un objeto de error con el mensaje de error y detalles adicionales.
+ *
+ * @example
+ * getAllCalendar(req, res);
+ */
+
+const getAllCalendar = async (req, res) => {
+
+    try {
+
+        console.log("Hola")        
+
+        const data = await modelGetAllCalendar();
+        
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+        else return res.status(400).json({
+            ok: true,
+            msg: 'No hay ningun tipo de comentario'
+        });
+
+       
+
+    } catch (e) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en getAll.',
+            error: e
+        });
+
+    };
+};
+
+
+
+/**
+ * Inserta un nuevo comentario en el calendario.
+ * @param {Object} req - El objeto Request de Express.
+ * @param {Object} req.body - El objeto que contiene los datos del comentario.
+ * @param {Object} res - El objeto Response de Express.
+ * @throws {Object} - Un objeto JSON con el error de inserción en caso de que falle.
+ */
+
+const InsertcommentCalendar = async ({ body }, res) => {
+
+    try {
+
+        const data = await modelInsertCalendar(body);
+
+        if (data) return res.status(200).json({
+            ok: true,
+            data
+        });
+
+    } catch (e) {
+        if (e.toString().includes('duplicate key value')) {
+
+            let err = { email: {} };
+            err.email.msg = 'el body no esta bien'
+
+            return res.status(500).json({
+                ok: false,
+                errors: err
+            });
+        }
+
+    };
+};
+
+
+
+/**
+ * Elimina un calendario por ID.
+ *
+ * @param {Object} req - El objeto request de Express.
+ * @param {Object} req.params - Los parámetros de la URL, incluyendo el ID del calendario a eliminar.
+ * @param {string} req.params.id - El ID del calendario a eliminar.
+ * @param {Object} res - El objeto response de Express.
+ * @returns {Promise&lt;void>} - No devuelve ningún valor explícito, pero envía una respuesta al cliente.
+ * @throws {Object} - Devuelve un objeto con información sobre el error en caso de que se produzca uno.
+ * @throws {Error} - Devuelve un objeto de error genérico en caso de que se produzca un error no previsto.
+ *
+ * @example
+ * // Request
+ * // DELETE /calendar/1234
+ *
+ * deletecalendar(req, res);
+ */
+
+const deletecalendar = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const deletedRows = await modelDeleteCalendar(id);
+  
+      if (deletedRows) {
+        return res.status(200).json({
+          ok: true,
+          msg: `Se eliminó el calendario con ID ${id}`
+        });
+      } else {
+        return res.status(404).json({
+          ok: false,
+          msg: `No se encontró el calendario con ID ${id}`
+        });
+      }
+    } catch (e) {
+      return res.status(500).json({
+        ok: false,
+        msg: 'Error en deletecalendar.',
+        error: e
+      });
+    }
+  };
+
+
+module.exports = {
+    InsertcommentCalendar,
+    getAllCalendar,
+    deletecalendar
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#GetBoulder">GetBoulder</a></li><li><a href="global.html#GetBoulderAlone">GetBoulderAlone</a></li><li><a href="global.html#GetClasica">GetClasica</a></li><li><a href="global.html#GetClasicaAlone">GetClasicaAlone</a></li><li><a href="global.html#GetDeportiva">GetDeportiva</a></li><li><a href="global.html#GetDeportivaAlone">GetDeportivaAlone</a></li><li><a href="global.html#Insertcomment">Insertcomment</a></li><li><a href="global.html#InsertcommentCalendar">InsertcommentCalendar</a></li><li><a href="global.html#deletecalendar">deletecalendar</a></li><li><a href="global.html#deleteforo">deleteforo</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getAllCalendar">getAllCalendar</a></li><li><a href="global.html#getAllForo">getAllForo</a></li><li><a href="global.html#getAllFromTipo">getAllFromTipo</a></li><li><a href="global.html#getInfoByLocalizacion">getInfoByLocalizacion</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 09 2023 10:54:50 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
